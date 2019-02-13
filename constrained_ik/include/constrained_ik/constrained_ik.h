@@ -109,7 +109,7 @@ public:
    * pose.
    * @return True if valid IK solution is found, otherwise false
    */
-  virtual bool calcInvKin(const Eigen::Affine3d &goal,
+  virtual bool calcInvKin(const Eigen::Isometry3d &goal,
                           const Eigen::VectorXd &joint_seed,
                           Eigen::VectorXd &joint_angles) const;
 
@@ -125,7 +125,7 @@ public:
    * @return True if valid IK solution is found, otherwise false
    */
   virtual bool
-  calcInvKin(const Eigen::Affine3d &goal, const Eigen::VectorXd &joint_seed,
+  calcInvKin(const Eigen::Isometry3d &goal, const Eigen::VectorXd &joint_seed,
              const planning_scene::PlanningSceneConstPtr planning_scene,
              Eigen::VectorXd &joint_angles) const;
 
@@ -292,7 +292,7 @@ protected:
    * @return SolverState
    */
   virtual constrained_ik::SolverState
-  getState(const Eigen::Affine3d &goal,
+  getState(const Eigen::Isometry3d &goal,
            const Eigen::VectorXd &joint_seed) const;
 
   /**

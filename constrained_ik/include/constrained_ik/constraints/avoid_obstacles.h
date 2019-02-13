@@ -66,7 +66,7 @@ typedef std::map<std::string, DistanceInfo> DistanceInfoMap;
  */
 bool getDistanceInfo(const collision_detection::DistanceMap &distance_detailed,
                      DistanceInfoMap &distance_info_map,
-                     const Eigen::Affine3d &tf);
+                     const Eigen::Isometry3d &tf);
 
 /**
  * @class constrained_ik::constraints::AvoidObstacles

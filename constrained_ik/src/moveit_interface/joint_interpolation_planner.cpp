@@ -63,7 +63,7 @@ bool JointInterpolationPlanner::solve(
   std::vector<std::string> joint_names =
       group_model->getActiveJointModelNames();
   std::vector<std::string> link_names = group_model->getLinkModelNames();
-  Eigen::Affine3d goal_pose;
+  Eigen::Isometry3d goal_pose;
   std::vector<double> pos(1);
   robot_trajectory::RobotTrajectoryPtr traj(
       new robot_trajectory::RobotTrajectory(rob_model, request_.group_name));

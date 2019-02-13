@@ -135,11 +135,11 @@ private:
    * @param stop end pose of trajectory
    * @param ds max cartesian translation interpolation step
    * @param dt max cartesian orientation interpolation step
-   * @return std::vector<Eigen::Affine3d>
+   * @return std::vector<Eigen::Isometry3d>
    */
-  std::vector<Eigen::Affine3d, Eigen::aligned_allocator<Eigen::Affine3d>>
-  interpolateCartesian(const Eigen::Affine3d &start,
-                       const Eigen::Affine3d &stop, double ds, double dt) const;
+  std::vector<Eigen::Isometry3d, Eigen::aligned_allocator<Eigen::Isometry3d>>
+  interpolateCartesian(const Eigen::Isometry3d &start,
+                       const Eigen::Isometry3d &stop, double ds, double dt) const;
 
   double translational_discretization_step_; /**< Max translational
                                                 discretization step */

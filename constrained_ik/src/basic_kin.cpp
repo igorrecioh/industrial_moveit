@@ -39,7 +39,7 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
 bool BasicKin::calcFwdKin(const Eigen::VectorXd &joint_angles,
-                          Eigen::Affine3d &pose) const {
+                          Eigen::Isometry3d &pose) const {
   //  int n = joint_angles.size();
   KDL::JntArray kdl_joints;
 
@@ -219,7 +219,7 @@ bool BasicKin::init(const moveit::core::JointModelGroup *group) {
   return true;
 }
 
-void BasicKin::KDLToEigen(const KDL::Frame &frame, Eigen::Affine3d &transform) {
+void BasicKin::KDLToEigen(const KDL::Frame &frame, Eigen::Isometry3d &transform) {
   transform.setIdentity();
 
   // translation

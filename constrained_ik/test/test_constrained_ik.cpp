@@ -41,7 +41,7 @@
 
 using constrained_ik::Constrained_IK;
 using constrained_ik::basic_kin::BasicKin;
-using Eigen::Affine3d;
+using Eigen::Isometry3d;
 using Eigen::VectorXd;
 using Eigen::MatrixXd;
 using Eigen::JacobiSVD;
@@ -106,7 +106,7 @@ protected:
       planning_scene_; /**< Planning scene for the current robot model */
   BasicKin kin;        /**< Basic Kinematic Model of the robot.  */
   Constrained_IK ik;   /**< The Constrained IK Solver */
-  Affine3d homePose;   /**< Cartesian home position */
+  Isometry3d homePose;   /**< Cartesian home position */
   constrained_ik::ConstrainedIKConfiguration
       config; /**< Constrained IK configuration parameters */
 
@@ -156,8 +156,8 @@ TEST_F(BasicIKTest, calcInvKinInputValidation) {
   EXPECT_NE(ik.checkInitialized(),
             constrained_ik::initialization_state::NothingInitialized);
   EXPECT_ANY_THROW(Constrained_IK().calcInvKin(
-      Affine3d::Identity(), seed, joints)); // un-init Constrained_IK
-  EXPECT_ANY_THROW(ik.calcInvKin(Affine3d(Eigen::Matrix4d::Zero()), seed,
+      Isometry3d::Identity(), seed, joints)); // un-init Constrained_IK
+  EXPECT_ANY_THROW(ik.calcInvKin(Isometry3d(Eigen::Matrix4d::Zero()), seed,
                                  joints)); // empty Pose (zeros in matrix
                                            // because unitary rotation matrix is
                                            // often in memory)
@@ -179,7 +179,7 @@ TEST_F(BasicIKTest, calcInvKinInputValidation) {
 /** @brief This tests the Constrained_IK calcInvKin function against known poses
  * using only primary constraint */
 TEST_F(BasicIKTest, knownPoses) {
-  Affine3d pose, rslt_pose;
+  Isometry3d pose, rslt_pose;
   VectorXd seed, expected(6), joints;
   ik.loadDefaultSolverConfiguration();
   config = ik.getSolverConfiguration();
@@ -285,7 +285,7 @@ TEST_F(BasicIKTest, knownPoses) {
 /** @brief This tests the Constrained_IK calcInvKin function null space motion
  */
 TEST_F(BasicIKTest, NullMotion) {
-  Affine3d pose, rslt_pose;
+  Isometry3d pose, rslt_pose;
   VectorXd seed, expected(6), joints;
   boost::random::mt19937 rng;
   ik.loadDefaultSolverConfiguration();
@@ -403,7 +403,7 @@ TEST_F(BasicIKTest, NullMotion) {
 /** @brief This tests the Constrained_IK calcInvKin function null space motion
  * convergence for known poses*/
 TEST_F(BasicIKTest, NullMotionPose) {
-  Affine3d pose, rslt_pose;
+  Isometry3d pose, rslt_pose;
   VectorXd seed, expected(6), joints;
   ik.loadDefaultSolverConfiguration();
   config = ik.getSolverConfiguration();
@@ -527,7 +527,7 @@ TEST_F(BasicIKTest, NullMotionPose) {
  * position of the tcp.
  */
 TEST_F(BasicIKTest, obstacleAvoidanceAuxiliaryConstraint) {
-  Affine3d pose, rslt_pose;
+  Isometry3d pose, rslt_pose;
   VectorXd seed, expected(6), joints;
   ik.loadDefaultSolverConfiguration();
   config = ik.getSolverConfiguration();

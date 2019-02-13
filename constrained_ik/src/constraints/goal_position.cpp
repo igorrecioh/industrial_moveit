@@ -81,8 +81,8 @@ GoalPosition::calcJacobian(const GoalPosition::GoalPositionData &cdata) const {
   return J;
 }
 
-double GoalPosition::calcDistance(const Eigen::Affine3d &p1,
-                                  const Eigen::Affine3d &p2) {
+double GoalPosition::calcDistance(const Eigen::Isometry3d &p1,
+                                  const Eigen::Isometry3d &p2) {
   return (p2.translation() - p1.translation()).norm();
 }
 

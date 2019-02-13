@@ -302,7 +302,7 @@ TEST_F(RobotTest, linkTransformsKnownPoses) {
  */
 TEST_F(RobotTest, calcFwdKinInputValidation) {
   // test for calcFwdKin(joints, pose)
-  Eigen::Affine3d pose;
+  Eigen::Isometry3d pose;
 
   EXPECT_FALSE(
       BasicKin().calcFwdKin(VectorXd(), pose)); // un-init BasicKin & Jnts
@@ -319,7 +319,7 @@ TEST_F(RobotTest, calcFwdKinInputValidation) {
 /** @brief This tests the BasicKin calcFwdKin function against known poses */
 TEST_F(RobotTest, calcFwdKinKnownPoses) {
   VectorXd joints = VectorXd::Zero(6);
-  Eigen::Affine3d expected, result;
+  Eigen::Isometry3d expected, result;
   double base_to_tip;
   double base_to_tip_expected;
   // all joints 0
@@ -371,7 +371,7 @@ TEST_F(RobotTest, calcJacobianKnownPoses) {
   VectorXd joints = VectorXd(6);
   VectorXd updated_joints = VectorXd(6);
   MatrixXd jacobian;
-  Eigen::Affine3d pose;
+  Eigen::Isometry3d pose;
   boost::random::mt19937 rng;
   double delta = 1e-3;
 
@@ -390,7 +390,7 @@ TEST_F(RobotTest, calcJacobianKnownPoses) {
     for (int i = 0; i < (int)joints.size(); i++) {
       updated_joints = joints;
       updated_joints[i] += delta;
-      Eigen::Affine3d updated_pose;
+      Eigen::Isometry3d updated_pose;
       kin.calcFwdKin(updated_joints, updated_pose);
       double delta_x =
           (updated_pose.translation().x() - pose.translation().x()) / delta;

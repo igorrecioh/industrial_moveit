@@ -67,8 +67,8 @@ public:
    * @param p2 Goal frame
    * @return Cartesian distance between p1 and p2
    */
-  static double calcDistance(const Eigen::Affine3d &p1,
-                             const Eigen::Affine3d &p2);
+  static double calcDistance(const Eigen::Isometry3d &p1,
+                             const Eigen::Isometry3d &p2);
 
   /**
    * @brief Jacobian is first three rows of standard jacobian

@@ -63,7 +63,7 @@ public:
    * (including uninitialized BasicKin)
    */
   bool calcFwdKin(const Eigen::VectorXd &joint_angles,
-                  Eigen::Affine3d &pose) const;
+                  Eigen::Isometry3d &pose) const;
 
   // TODO test
   /**
@@ -219,11 +219,11 @@ public:
                          const double eps = 0.011, const double lambda = 0.01);
 
   /**
-   * @brief Convert KDL::Frame to Eigen::Affine3d
+   * @brief Convert KDL::Frame to Eigen::Isometry3d
    * @param frame Input KDL Frame
-   * @param transform Output Eigen transform (Affine3d)
+   * @param transform Output Eigen transform (Isometry3d)
    */
-  static void KDLToEigen(const KDL::Frame &frame, Eigen::Affine3d &transform);
+  static void KDLToEigen(const KDL::Frame &frame, Eigen::Isometry3d &transform);
 
   /**
    * @brief Convert KDL::Jacobian to Eigen::Matrix

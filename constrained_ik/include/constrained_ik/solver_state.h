@@ -39,7 +39,7 @@ namespace constrained_ik {
 /** @brief Internal state of Constrained_IK solver */
 struct SolverState {
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-  Eigen::Affine3d goal; /**< Desired goal position to solve IK about */
+  Eigen::Isometry3d goal; /**< Desired goal position to solve IK about */
   Eigen::
       VectorXd joint_seed; /**< Joint position (initial guess) to seed the IK
                               solver with */
@@ -49,7 +49,7 @@ struct SolverState {
   Eigen::VectorXd
       joints_delta; /**< The joint delta between this state and the previous
                        state */
-  Eigen::Affine3d pose_estimate; /**< The pose for the updated joint position
+  Eigen::Isometry3d pose_estimate; /**< The pose for the updated joint position
                                     from the solver */
   std::vector<Eigen::VectorXd>
       iteration_path; /**< Store the joint position for each iteration of the
@@ -79,7 +79,7 @@ struct SolverState {
    * @param goal desired goal position to solve IK about
    * @param joint_seed joint position (initial guess) to seed the IK solver with
    */
-  SolverState(const Eigen::Affine3d &goal, const Eigen::VectorXd &joint_seed);
+  SolverState(const Eigen::Isometry3d &goal, const Eigen::VectorXd &joint_seed);
   SolverState() {}
 
   /**
@@ -87,7 +87,7 @@ struct SolverState {
    * @param goal desired goal position to solve IK about
    * @param joint_seed joint position (initial guess) to seed the IK solver with
    */
-  void reset(const Eigen::Affine3d &goal, const Eigen::VectorXd &joint_seed);
+  void reset(const Eigen::Isometry3d &goal, const Eigen::VectorXd &joint_seed);
 };
 
 } // namespace constrained_ik

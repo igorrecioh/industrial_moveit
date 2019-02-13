@@ -31,12 +31,12 @@ using namespace Eigen;
 
 namespace constrained_ik {
 
-SolverState::SolverState(const Eigen::Affine3d &goal,
+SolverState::SolverState(const Eigen::Isometry3d &goal,
                          const Eigen::VectorXd &joint_seed) {
   reset(goal, joint_seed);
 }
 
-void SolverState::reset(const Eigen::Affine3d &goal,
+void SolverState::reset(const Eigen::Isometry3d &goal,
                         const Eigen::VectorXd &joint_seed) {
   this->goal = goal;
   this->joint_seed = joint_seed;
@@ -47,7 +47,7 @@ void SolverState::reset(const Eigen::Affine3d &goal,
   this->primary_sum = 0.0;
   this->auxiliary_sum = 0.0;
   this->auxiliary_at_limit = false;
-  this->pose_estimate = Affine3d::Identity();
+  this->pose_estimate = Isometry3d::Identity();
   this->condition = initialization_state::NothingInitialized;
 }
 

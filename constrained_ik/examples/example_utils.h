@@ -57,7 +57,7 @@ static bool evaluteExampleIK(constrained_ik::basic_kin::BasicKin &kin,
                              planning_scene::PlanningScenePtr planning_scene =
                                  planning_scene::PlanningScenePtr()) {
   ros::NodeHandle nh;
-  Eigen::Affine3d goalPose, finalPose;
+  Eigen::Isometry3d goalPose, finalPose;
   Eigen::VectorXd joints(6);
 
   // get data from ros param server

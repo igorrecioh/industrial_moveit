@@ -83,7 +83,7 @@ public:
    * @param p2 Goal pose
    * @return Shortest angle between p1 and p2
    */
-  static double calcAngle(const Eigen::Affine3d &p1, const Eigen::Affine3d &p2);
+  static double calcAngle(const Eigen::Isometry3d &p1, const Eigen::Isometry3d &p2);
 
   /**
    * @brief Calculate 3-element rotation vector necessary to rotate pose p1 into
@@ -93,8 +93,8 @@ public:
    * @param p2 Goal pose
    * @return x,y,z rotation from p1 to p2
    */
-  static Eigen::Vector3d calcAngleError(const Eigen::Affine3d &p1,
-                                        const Eigen::Affine3d &p2);
+  static Eigen::Vector3d calcAngleError(const Eigen::Isometry3d &p1,
+                                        const Eigen::Isometry3d &p2);
 
   /**
    * @brief Checks termination criteria

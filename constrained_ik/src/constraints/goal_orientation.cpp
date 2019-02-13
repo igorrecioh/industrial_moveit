@@ -55,14 +55,14 @@ GoalOrientation::evalConstraint(const SolverState &state) const {
   return output;
 }
 
-double GoalOrientation::calcAngle(const Eigen::Affine3d &p1,
-                                  const Eigen::Affine3d &p2) {
+double GoalOrientation::calcAngle(const Eigen::Isometry3d &p1,
+                                  const Eigen::Isometry3d &p2) {
   Quaterniond q1(p1.rotation()), q2(p2.rotation());
   return q1.angularDistance(q2);
 }
 
-Eigen::Vector3d GoalOrientation::calcAngleError(const Eigen::Affine3d &p1,
-                                                const Eigen::Affine3d &p2) {
+Eigen::Vector3d GoalOrientation::calcAngleError(const Eigen::Isometry3d &p1,
+                                                const Eigen::Isometry3d &p2) {
   Eigen::AngleAxisd r12(p1.rotation().transpose() *
                         p2.rotation()); // rotation from p1 -> p2
   double theta = Constrained_IK::rangedAngle(

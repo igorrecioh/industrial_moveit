@@ -35,7 +35,7 @@ const std::vector<std::string> SUPPORTED_COLLISION_DETECTORS = {
 namespace constrained_ik {
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
-using Eigen::Affine3d;
+using Eigen::Isometry3d;
 
 Constrained_IK::Constrained_IK(const ros::NodeHandle &nh) : nh_(nh) {
   initialized_ = false;
@@ -192,7 +192,7 @@ Constrained_IK::calcDampedPseudoinverse(const Eigen::MatrixXd &J) const {
   }
 }
 
-bool Constrained_IK::calcInvKin(const Eigen::Affine3d &goal,
+bool Constrained_IK::calcInvKin(const Eigen::Isometry3d &goal,
                                 const Eigen::VectorXd &joint_seed,
                                 Eigen::VectorXd &joint_angles) const {
   return calcInvKin(goal, joint_seed, planning_scene::PlanningSceneConstPtr(),
@@ -200,7 +200,7 @@ bool Constrained_IK::calcInvKin(const Eigen::Affine3d &goal,
 }
 
 bool Constrained_IK::calcInvKin(
-    const Eigen::Affine3d &goal, const Eigen::VectorXd &joint_seed,
+    const Eigen::Isometry3d &goal, const Eigen::VectorXd &joint_seed,
     const planning_scene::PlanningSceneConstPtr planning_scene,
     Eigen::VectorXd &joint_angles) const {
   double dJoint_norm;
@@ -433,7 +433,7 @@ double Constrained_IK::rangedAngle(double angle) {
 }
 
 constrained_ik::SolverState
-Constrained_IK::getState(const Eigen::Affine3d &goal,
+Constrained_IK::getState(const Eigen::Isometry3d &goal,
                          const Eigen::VectorXd &joint_seed) const {
   if (!kin_.checkJoints(joint_seed))
     throw std::invalid_argument("Seed doesn't match kinematic model");

@@ -138,7 +138,7 @@ bool ConstrainedIKPlugin::getPositionIK(
   // convert input parameters to required types
   KDL::Frame pose_desired;
   tf::poseMsgToKDL(ik_pose, pose_desired);
-  Eigen::Affine3d goal;
+  Eigen::Isometry3d goal;
   tf::transformKDLToEigen(pose_desired, goal);
 
   Eigen::VectorXd seed(dimension_), joint_angles(dimension_);
@@ -215,7 +215,7 @@ bool ConstrainedIKPlugin::searchPositionIK(
 
   KDL::Frame pose_desired;
   tf::poseMsgToKDL(ik_pose, pose_desired);
-  Eigen::Affine3d goal;
+  Eigen::Isometry3d goal;
   tf::transformKDLToEigen(pose_desired, goal);
 
   if (dimension_ != ik_seed_state.size()) {

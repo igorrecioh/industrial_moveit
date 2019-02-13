@@ -114,7 +114,7 @@ bool CartesianPlanner::solve(planning_interface::MotionPlanResponse &res) {
   ros::WallTime start_time = ros::WallTime::now();
   robot_state::RobotStatePtr mid_state;
   std::vector<std::string> joint_names, link_names;
-  Eigen::Affine3d start_pose, goal_pose;
+  Eigen::Isometry3d start_pose, goal_pose;
 
   robot_model_ = planning_scene_->getRobotModel();
 
@@ -196,11 +196,11 @@ bool CartesianPlanner::solve(planning_interface::MotionPlanResponse &res) {
                   goal_pose.rotation().eulerAngles(3, 2, 1)(2));
 
   // Generate Interpolated Cartesian Poses
-  Eigen::Affine3d world_to_base =
+  Eigen::Isometry3d world_to_base =
       start_state
           .getGlobalLinkTransform(solver_->getKin().getRobotBaseLinkName())
           .inverse();
-  std::vector<Eigen::Affine3d, Eigen::aligned_allocator<Eigen::Affine3d>>
+  std::vector<Eigen::Isometry3d, Eigen::aligned_allocator<Eigen::Isometry3d>>
       poses = interpolateCartesian(world_to_base * start_pose,
                                    world_to_base * goal_pose,
                                    translational_discretization_step_,
@@ -273,15 +273,15 @@ bool CartesianPlanner::solve(planning_interface::MotionPlanResponse &res) {
   }
 }
 
-std::vector<Eigen::Affine3d, Eigen::aligned_allocator<Eigen::Affine3d>>
-CartesianPlanner::interpolateCartesian(const Eigen::Affine3d &start,
-                                       const Eigen::Affine3d &stop, double ds,
+std::vector<Eigen::Isometry3d, Eigen::aligned_allocator<Eigen::Isometry3d>>
+CartesianPlanner::interpolateCartesian(const Eigen::Isometry3d &start,
+                                       const Eigen::Isometry3d &stop, double ds,
                                        double dt) const {
   // Required position change
   Eigen::Vector3d delta_translation =
       (stop.translation() - start.translation());
   Eigen::Vector3d start_pos = start.translation();
-  Eigen::Affine3d stop_prime =
+  Eigen::Isometry3d stop_prime =
       start.inverse() * stop; // This the stop pose represented in the start
                               // pose coordinate system
   Eigen::AngleAxisd delta_rotation(stop_prime.rotation());
@@ -302,11 +302,11 @@ CartesianPlanner::interpolateCartesian(const Eigen::Affine3d &start,
   Eigen::Quaterniond stop_q(stop.rotation());
   double slerp_ratio = 1.0 / steps;
 
-  std::vector<Eigen::Affine3d, Eigen::aligned_allocator<Eigen::Affine3d>>
+  std::vector<Eigen::Isometry3d, Eigen::aligned_allocator<Eigen::Isometry3d>>
       result;
   Eigen::Vector3d trans;
   Eigen::Quaterniond q;
-  Eigen::Affine3d pose;
+  Eigen::Isometry3d pose;
   result.reserve(steps + 1);
   for (unsigned i = 0; i <= steps; ++i) {
     trans = start_pos + step * i;

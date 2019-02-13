@@ -60,7 +60,7 @@ using std::vector;
 
 bool getDistanceInfo(const collision_detection::DistanceMap &distance_detailed,
                      DistanceInfoMap &distance_info_map,
-                     const Eigen::Affine3d &tf) {
+                     const Eigen::Isometry3d &tf) {
   bool status = true;
   for (DistanceMap::const_iterator it = distance_detailed.begin();
        it != distance_detailed.end(); ++it) {
@@ -358,7 +358,7 @@ AvoidObstacles::AvoidObstaclesData::AvoidObstaclesData(
         *state_.robot_state,
         state_.planning_scene->getAllowedCollisionMatrix());
   }
-  Eigen::Affine3d tf = state_.robot_state
+  Eigen::Isometry3d tf = state_.robot_state
                            ->getGlobalLinkTransform(
                                parent_->ik_->getKin().getRobotBaseLinkName())
                            .inverse();
